@@ -1,0 +1,49 @@
+{% macro form_user(user)%}
+    <form method="POST">
+        {% if request.endpoint == 'createuser'%}
+            <div class="mb-3">
+                <input type="login" class="form-control {{ 'is-invalid' if error_login else '' }}" id="" aria-describedby="" placeholder="Login" name="login" value={{user.login or ''}}>
+            </div>
+            {% if error_login %}
+                <div class="invalid-feedback">{{ error_login }}</div>
+            {% endif %}
+            <div class="mb-3">
+                <input type="password" class="form-control {{ 'is-invalid' if error_passwd else '' }}" id="" aria-describedby="" placeholder="Password" name="password" value={{user.password or ''}}>
+            </div>
+            {% if error_passwd %}
+                <div class="invalid-feedback">{{ error_passwd }}</div>
+            {% endif %}
+        {% elif request.endpoint == 'change_password' %}
+            <div class="mb-3">
+                <input type="password" class="form-control {{ 'is-invalid' if error_old_passwd else '' }}" id="" aria-describedby="" placeholder="Password" name="old_password">
+            </div>
+            {% if error_passwd %}
+                <div class="invalid-feedback">{{ error_old_passwd }}</div>
+            {% endif %}
+            <div class="mb-3">
+                <input type="password" class="form-control {{ 'is-invalid' if error_new_passwd or error_both_passwd else '' }}" id="" aria-describedby="" placeholder="Password" name="new_password">
+            </div>
+            {% if error_new_passwd %}
+                <div class="invalid-feedback">{{ error_new_passwd }}</div>
+            {% elif error_both_passwd %}
+                <div class="invalid-feedback">{{ error_both_passwd }}</div>
+            {% endif %}
+            <div class="mb-3">
+                <input type="password" class="form-control {{ 'is-invalid' if error_both_passwd else '' }}" id="" aria-describedby="" placeholder="Password" name="new_rep_password">
+            </div>
+            {% if error_both_passwd %}
+                <div class="invalid-feedback">{{ error_both_passwd }}</div>
+            {% endif %}
+        {% endif%}
+        <div class="mb-3">
+            <input type="text" class="form-control" id="" aria-describedby="" placeholder="First name" name="first_name" value={{user.first_name or ''}}>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="" aria-describedby="" placeholder="Last name" name="last_name"  value={{user.last_name or ''}}>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="" aria-describedby="" placeholder="Last name" name="middle_name"  value={{user.middle_name or ''}}>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endmacro%}
