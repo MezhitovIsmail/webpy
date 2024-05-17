@@ -1,0 +1,38 @@
+{% extends "visits/base.html" %}
+
+{% block tabs %}
+
+<div class="tabs">
+    <h1>Журнал посещений по пользователям</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Пользователь</th>
+                <th>Количество посещений</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    {% if event.first_name and event.last_name %}
+                        {{ event.first_name }} {{ event.last_name }}
+                    {% else %}
+                        Неаутентифицированный пользователь
+                    {% endif %}
+                </td>
+                <td>
+                    {{ event.count }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{url_for('eventlist.save_to_csv_users')}}" type="button" class="btn btn-success">Сохранить в CSV</a>
+</div>
+
+{% endblock %}
